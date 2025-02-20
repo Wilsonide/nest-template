@@ -141,12 +141,12 @@ export class AuthService {
       maxAge: 60 * 60 * 24 * 24 * 1000, //24 days
     });
     if (user.provider) {
-      return response.redirect('http://localhost:3500');
+      return response.redirect(this.configService.get<string>('DOMAIN'));
     }
 
     return {
       accessToken: accessToken,
-      success: 'login successful',
+      success: 'login was successful',
       name: user.name,
       email: user.email,
       profile: user.image,

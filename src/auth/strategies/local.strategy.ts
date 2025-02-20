@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { ForbiddenException, Injectable} from '@nestjs/common';
+import { UnauthorizedException, Injectable} from '@nestjs/common';
 import { AuthService } from '../auth.service';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   async validate(username: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(username, password);
     if (!user) {
-      throw new ForbiddenException('invalid credentials');
+      throw new UnauthorizedException('Invalid credentials');
     }
     return user;
   }
